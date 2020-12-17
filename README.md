@@ -48,4 +48,4 @@ Here are some terms and my general thoughts about `vagrant` (a tool I 💖)
       - in vm config blocks in Vagrantfile
     - nuanced config (lower level) like VirtualBox's `--modifyvm` flag
   - additional providers can be installed via [provider plugins](https://www.vagrantup.com/docs/plugins/providers)
-- `provisioner`
+- `provisioner` - configuration management to predictably and automatically tailor a VM to your needs beyond what is provided in the `box` which can be thought of as a starting point. 
