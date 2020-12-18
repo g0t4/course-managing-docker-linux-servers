@@ -1,70 +1,51 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+  # multi-machine docs: https://www.vagrantup.com/docs/multi-machine
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
+  INSTALL_BINARY = <<-SHELL
+    # todo
+  SHELL
+
+  # we could have custom boxes per defined VM, just using ubuntu/focal64 for stability for widespread use.
   config.vm.box = "ubuntu/focal64"
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.define "binary" do |binary|
+    binary.vm.network "private_network", ip: "192.168.20.10"
+    binary.vm.provision "shell", inline: $INSTALL_BINARY
+  end 
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  # install with get.docker.com 
+    # via vagrant shell provisioner to stream line the install and not need even an inline script
+  config.vm.define "gety" do |gety|
+    gety.vm.network "private_network", ip: "192.168.20.12"
+    gety.vm.provision "shell", path: "https://get.docker.com"
+  end 
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine and only allow access
-  # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+  # use snap to install docker
+  config.vm.define "snappy" do |snappy|
+    snappy.vm.network "private_network", ip: "192.168.20.14"
+    snappy.vm.provision "shell", inline: $SNAPPY_INSTALL
+  end
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+  # use snap to install docker
+  config.vm.define "ansibles" do |ansibles|
+    ansibles.vm.network "private_network", ip: "192.168.20.16"
+    #snappy.vm.provision "ansible_local", playbook: ""
+  end
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  SNAPPY_INSTALL = <<-SHELL
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  SHELL
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
+  # ANSIBLE DOCKER route too?
+  # https://github.com/thomvaill/tads-boilerplate/blob/master/ansible/provision-01-docker.yml
+  # https://github.com/geerlingguy/ansible-role-docker
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 4
+    vb.memory = "8192"
+  end
+
 end
