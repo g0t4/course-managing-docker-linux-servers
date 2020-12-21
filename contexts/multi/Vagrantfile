@@ -1,36 +1,52 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-  # multi-machine docs: https://www.vagrantup.com/docs/multi-machine
+# This is known as a `multi-machine environment` in vagrant
+# multi-machine docs: https://www.vagrantup.com/docs/multi-machine
 
-  INSTALL_BINARY = <<-SHELL
+Vagrant.configure("2") do |config|
+
+  # Caution `config` applies to all VMs
+  # FYI use define blocks to mix and match boxes (this is how you can have multiple distros)
+  config.vm.box = "ubuntu/focal64"
+  
+  $INSTALL_BINARY = <<-SHELL
     # todo
   SHELL
 
-  # we could have custom boxes per defined VM, just using ubuntu/focal64 for stability for widespread use.
-  config.vm.box = "ubuntu/focal64"
-
+  # define describes a machine to vagrant
   config.vm.define "binary" do |binary|
+    binary.vm.hostname = "binary"
     binary.vm.network "private_network", ip: "192.168.20.10"
     binary.vm.provision "shell", inline: $INSTALL_BINARY
   end 
 
+ 
   # install with get.docker.com 
     # via vagrant shell provisioner to stream line the install and not need even an inline script
   config.vm.define "gety" do |gety|
+    gety.vm.hostname = "gety"
     gety.vm.network "private_network", ip: "192.168.20.12"
     gety.vm.provision "shell", path: "https://get.docker.com"
+    gety.vm.provision type: "shell", inline: $GETY_POST_INSTALL_SCRIPT   
   end 
+
+  $GETY_POST_INSTALL_SCRIPT = <<-SHELL
+  usermod -aG vagrant docker
+  SHELL
 
   # use snap to install docker
   config.vm.define "snappy" do |snappy|
+    snappy.vm.hostname = "binary"
     snappy.vm.network "private_network", ip: "192.168.20.14"
     snappy.vm.provision "shell", inline: $SNAPPY_INSTALL
   end
 
-  # use snap to install docker
-  config.vm.define "ansibles" do |ansibles|
+
+  # just mention use ansible - no time to do it wes nor does it really matter, does it? 
+  # you could always use ansible in last module
+  config.vm.define "ansibles", autostart: false, do |ansibles|
+    ansibles.vm.hostname = "binary"
     ansibles.vm.network "private_network", ip: "192.168.20.16"
     #snappy.vm.provision "ansible_local", playbook: ""
   end
