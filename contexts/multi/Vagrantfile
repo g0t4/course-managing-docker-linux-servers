@@ -6,54 +6,52 @@
 
 Vagrant.configure("2") do |config|
 
-  # Caution `config` applies to all VMs
-  # FYI use define blocks to mix and match boxes (this is how you can have multiple distros)
-  config.vm.box = "ubuntu/focal64"
-  
-  $INSTALL_BINARY = <<-SHELL
-    # todo
-  SHELL
+  # `config` applies to all VMs
+  config.vm.box = "generic/focal20.04"
 
-  # define describes a machine to vagrant
-  config.vm.define "binary" do |binary|
-    binary.vm.hostname = "binary"
-    binary.vm.network "private_network", ip: "192.168.20.10"
-    binary.vm.provision "shell", inline: $INSTALL_BINARY
-  end 
-
- 
-  # install with get.docker.com 
-    # via vagrant shell provisioner to stream line the install and not need even an inline script
+  # scenario: install docker with get.docker.com, hence name `gety` 
   config.vm.define "gety" do |gety|
     gety.vm.hostname = "gety"
     gety.vm.network "private_network", ip: "192.168.20.12"
+    # shell provisioner path instructs vagrant to download remote script (make sure you trust remote scripts and avoid http)
     gety.vm.provision "shell", path: "https://get.docker.com"
-    gety.vm.provision type: "shell", inline: $GETY_POST_INSTALL_SCRIPT   
+    # gety.vm.provision type: "shell", inline: $GETY_POST_INSTALL_SCRIPT   
   end 
-
+  
   $GETY_POST_INSTALL_SCRIPT = <<-SHELL
+  
+  echo calling docker version should fail to show server side
+  docker version
+  # add vagrant user to the docker group thus granting accesss to the default unix socket at /var/run/docker.sock
   usermod -aG vagrant docker
   SHELL
 
-  # use snap to install docker
-  config.vm.define "snappy" do |snappy|
-    snappy.vm.hostname = "binary"
-    snappy.vm.network "private_network", ip: "192.168.20.14"
-    snappy.vm.provision "shell", inline: $SNAPPY_INSTALL
-  end
-
-
-  # just mention use ansible - no time to do it wes nor does it really matter, does it? 
-  # you could always use ansible in last module
-  config.vm.define "ansibles", autostart: false, do |ansibles|
-    ansibles.vm.hostname = "binary"
-    ansibles.vm.network "private_network", ip: "192.168.20.16"
-    #snappy.vm.provision "ansible_local", playbook: ""
-  end
-
-  SNAPPY_INSTALL = <<-SHELL
-
+  $GETY_POST_INSTALL_POST_ADD_VAGRANT_USER_TO_DOCKER_GROUP = <<-SHELL
+    groups
   SHELL
+
+
+  # # define describes a specific machine to Vagrant instead of the `default` single machine setup. 
+  # # you'll see the name `default` if you run `vagrant status` on a single machine config
+  # config.vm.define "binary" do |binary|
+  #   binary.vm.hostname = "binary"
+  #   binary.vm.network "private_network", ip: "192.168.20.10"
+  #   binary.vm.provision "shell", inline: $INSTALL_BINARY
+  # end 
+  # $INSTALL_BINARY = <<-SHELL
+  #   # todo
+  # SHELL
+
+
+
+  # # just mention use ansible - no time to do it wes nor does it really matter, does it? 
+  # # you could always use ansible in last module
+  # config.vm.define "ansibles" do |ansibles|
+  #   ansibles.vm.hostname = "binary"
+  #   ansibles.vm.network "private_network", ip: "192.168.20.16"
+  #   #snappy.vm.provision "ansible_local", playbook: ""
+  # end
+
 
   # ANSIBLE DOCKER route too?
   # https://github.com/thomvaill/tads-boilerplate/blob/master/ansible/provision-01-docker.yml
