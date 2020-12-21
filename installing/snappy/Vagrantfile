@@ -1,3 +1,12 @@
+
+# This is a simple install example of using a 3rd party repository of packages that are not officially supported. In this case I'm using snaps but there are many ways to use unofficial install channels. For example, distros often ship with custom builds of docker (sometimes lagging the latest release(s) of Docker ).
+# Anyways, if you find vaule in using a 3rd party repo like snaps, have at it!
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    # visit http://snapcraft.io/ for more about `snaps`
+
+  SHELL
+
 end
