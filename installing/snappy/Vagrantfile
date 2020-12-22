@@ -1,12 +1,19 @@
 
-# This is a simple install example of using a 3rd party repository of packages that are not officially supported. In this case I'm using snaps but there are many ways to use unofficial install channels. For example, distros often ship with custom builds of docker (sometimes lagging the latest release(s) of Docker ).
-# Anyways, if you find vaule in using a 3rd party repo like snaps, have at it!
+# Example of a 3rd party Docker Engine for Linux installers
+  # ubuntu + docker snap 
+  # https://snapcraft.io/ to learn more about snaps
+  # one of many considerations is the lag in unofficial channels when the official upstream builds come out (ie Docker 20.10 and as of 2020-12-22 the snap for Docker installs 19.03.11 from its latest/stable channel)
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
 
-  config.vm.provision "shell", inline: <<-SHELL
-    # visit http://snapcraft.io/ for more about `snaps`
 
+  config.vm.provision "shell", inline: <<-SHELL
+    # todo add group then add vagrant to group and then make sure docker is restarted (it should open /var/run/docker.sock with group docker if that group is present before it runs)
+  SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo snap refresh
+    sudo snap install docker
   SHELL
 
 end
