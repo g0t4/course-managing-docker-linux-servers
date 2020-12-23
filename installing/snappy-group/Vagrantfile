@@ -1,0 +1,14 @@
+
+# Example of a 3rd party Docker Engine for Linux installers
+  # ubuntu + docker snap 
+  # https://snapcraft.io/ to learn more about snaps
+  # one of many considerations is the lag in unofficial channels when the official upstream builds come out (ie Docker 20.10 is out and the docker snap still installs 19.03.11 from its latest/stable channel)
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo snap refresh
+    sudo snap install docker
+  SHELL
+
+end
