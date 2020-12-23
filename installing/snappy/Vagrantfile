@@ -6,11 +6,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
 
-
-  config.vm.provision "shell", inline: <<-SHELL
-    # todo add group then add vagrant to group and then make sure docker is restarted (it should open /var/run/docker.sock with group docker if that group is present before it runs)
-  SHELL
-
   config.vm.provision "shell", inline: <<-SHELL
     sudo snap refresh
     sudo snap install docker
