@@ -1,5 +1,40 @@
 ---
-
-- hosts: localhost
-  block:
-  - debug: msg=hi
+# adapted from https://docs.docker.com/engine/install/ubuntu/
+# for ubuntu 20.04
+- hosts: all
+  when:
+    # https://docs.docker.com/engine/install/ubuntu/#os-requirements
+    - ansible_distribution_version in ["16.04", "18.04", "20.04", "20.10"]
+    - ansible_distribution == 'Ubuntu'
+    # only tested on focal 20.04
+  tasks:
+    - name: ensure old docker packages are absent
+      apt:
+        state: absent
+        pkg: docker docker-engine docker.io containerd runc
+    - name: install deps for installing from https repos
+      apt:
+        update_cache: yes
+        pkg:
+          # I'm pretty sure apt-transport-https is now bundled
+          # https://packages.ubuntu.com/focal/all/apt-transport-https/
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+    - name: add docker's key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+    - name: add docker's apt repo
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    - name: ensure cli only
+      apt:
+        update_cache: yes
+        pkg: docker-ce-cli
+    - name: check if cli is present and operational but not server
+      assert: 
+        that:
+        - "ansible_os_family": "Ubuntu"
