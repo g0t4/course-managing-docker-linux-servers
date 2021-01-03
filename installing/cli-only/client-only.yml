@@ -35,3 +35,4 @@
       apt:
         update_cache: yes
         pkg: docker-ce-cli
+    # FYI no need to add vagrant user to docker group if no local daemon!
