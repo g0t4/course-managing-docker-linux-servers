@@ -6,7 +6,7 @@
     - name: ensure docker os requirements are met https://docs.docker.com/engine/install/ubuntu/#os-requirements
       assert:
         that:
-          - ansible_distribution_version in ["16.04", "18.04", "20.04", "20.10"]
+          - ansible_distribution_version in ["16.04", "18.04"]
           - ansible_distribution == 'Ubuntu'
     # only tested on focal 20.04
     - name: ensure old docker packages are absent
