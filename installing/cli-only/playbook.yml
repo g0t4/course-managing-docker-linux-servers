@@ -34,7 +34,3 @@
       apt:
         update_cache: yes
         pkg: docker-ce-cli
-    - name: check if cli is present and operational but not server
-      assert: 
-        that:
-        - "ansible_os_family": "Ubuntu"
