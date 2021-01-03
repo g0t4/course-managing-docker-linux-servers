@@ -43,7 +43,10 @@ sudo apt-get install -qy ansible
 #     - demystify part of vagrant! (learning tool)
 #     - add CM tools that can then take over!
 
-## Notes 
 
-# Ansible docs guide for using vagrant: 
+
+## Relevant Ansible docs 
+
 # - https://docs.ansible.com/ansible/latest/scenario_guides/guide_vagrant.html
+# - https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+  # ansible_local means the guest is the controller (self configures)

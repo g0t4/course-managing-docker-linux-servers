@@ -3,13 +3,14 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
   config.vm.hostname = "cli-only"
 
+  # this script (instead of vagrant) installs ansible on the guest
   config.vm.provision "shell", path: "ensure.guest.has.ansible.sh"
 
   # https://www.vagrantup.com/docs/provisioning/ansible_local
   config.vm.provision "ansible_local" do |ansible|
     ansible.become = true
-    # since ansible is already installed, this provisioner only deals with running my playbook
     ansible.playbook = "client-only.yml"
+    # control vagrant output verbosity if you have playbook problems
     # ansible.verbose = "vvv" # true/"v" "vvv" "vvvv"
   end
 
