@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
   config.vm.hostname = "cli-only"
 
-  config.vm.provision "shell", path: "ensure.ansible.sh"
+  config.vm.provision "shell", path: "ensure.guest.has.ansible.sh"
 
   # https://www.vagrantup.com/docs/provisioning/ansible_local
   config.vm.provision "ansible_local" do |ansible|
