@@ -34,5 +34,5 @@
     - name: ensure cli only
       apt:
         update_cache: yes
-        pkg: docker-ce-cli
+        pkg: docker-ce docker-ce-cli containerd.io
     # FYI no need to add vagrant user to docker group if no local daemon!
