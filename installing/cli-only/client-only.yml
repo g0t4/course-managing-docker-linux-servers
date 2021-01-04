@@ -34,9 +34,11 @@
       apt:
         update_cache: yes
         pkg: docker-ce-cli
+#
 ## Ansible links
 # - https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
-
+#
+#
 ## FROM HERE:
 # - There's no need to add the vagrant user to docker group if no local daemon via a unix socket!
 #   - That said, you might want to configure connections (contexts) with ansbile too!
