@@ -27,7 +27,6 @@
     - name: add docker's key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
-    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
     - name: add docker's apt repo
       apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
@@ -35,11 +34,13 @@
       apt:
         update_cache: yes
         pkg: docker-ce-cli
+## Ansible links
+# - https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
 
 ## FROM HERE:
 # - There's no need to add the vagrant user to docker group if no local daemon via a unix socket!
 #   - That said, you might want to configure connections (contexts) with ansbile too!
 # - You can adapt this playbook to isntall the full Docker Engine (not just client)
-  # pkg: docker-ce docker-ce-cli containerd.io
-  # if desired, follow post-install steps and mod this playbook as an exercise.
-    # notably add the vagrant user to the docker group and ensure you can connect to the daemon too! 
+#   pkg: docker-ce docker-ce-cli containerd.io
+# - if desired, follow post-install steps and mod this playbook as an exercise.
+#   - notably add the vagrant user to the docker group and ensure you can connect to the daemon too!
