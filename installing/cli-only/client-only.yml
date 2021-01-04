@@ -34,5 +34,12 @@
     - name: ensure cli only
       apt:
         update_cache: yes
-        pkg: docker-ce docker-ce-cli containerd.io
-    # FYI no need to add vagrant user to docker group if no local daemon!
+        pkg: docker-ce-cli
+
+## FROM HERE:
+# - There's no need to add the vagrant user to docker group if no local daemon via a unix socket!
+#   - That said, you might want to configure connections (contexts) with ansbile too!
+# - You can adapt this playbook to isntall the full Docker Engine (not just client)
+  # pkg: docker-ce docker-ce-cli containerd.io
+  # if desired, follow post-install steps and mod this playbook as an exercise.
+    # notably add the vagrant user to the docker group and ensure you can connect to the daemon too! 
