@@ -6,18 +6,17 @@
     - name: ensure docker os requirements are met https://docs.docker.com/engine/install/ubuntu/#os-requirements
       assert:
         that:
-          - ansible_distribution_version in ["16.04", "18.04"]
+          - ansible_distribution_version in ["16.04", "18.04", "20.04", "20.10"]
           - ansible_distribution == 'Ubuntu'
     # only tested on focal 20.04
     - name: ensure old docker packages are absent
       apt:
         state: absent
         pkg: docker docker-engine docker.io containerd runc
-    - name: install deps for installing from https repos
+    - name: install deps for installing from https repos - per docker docs
       apt:
         update_cache: yes
         pkg:
-          # I'm pretty sure apt-transport-https is now bundled
           # https://packages.ubuntu.com/focal/all/apt-transport-https/
           - apt-transport-https
           - ca-certificates
