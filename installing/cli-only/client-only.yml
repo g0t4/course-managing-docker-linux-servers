@@ -39,6 +39,11 @@
 #
 #
 ## FROM HERE:
+# - confirm units not installed for Docker Engine daemon
+  # - `systemctl list-sockets  --all` 
+  # - `systemctl list-unit-files  --all`
+# - also confirm by docker version as root 
+  # - `sudo docker version` this should still fail to show server side asking if daemon is operational 
 # - There's no need to add the vagrant user to docker group if no local daemon via a unix socket!
 #   - That said, you might want to configure connections (contexts) with ansbile too!
 # - You can adapt this playbook to isntall the full Docker Engine (not just client)
