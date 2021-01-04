@@ -33,3 +33,4 @@ The master branch contains the history of commits from zero to finished so you c
       - Dockerfile, docker-compose syntax
       - docker CLI and dockerd flags/config
       - API docs (both Engine and Registry)
+  - [Glossary](https://docs.docker.com/glossary/)
