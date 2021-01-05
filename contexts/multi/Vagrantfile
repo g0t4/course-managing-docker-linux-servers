@@ -9,48 +9,15 @@ Vagrant.configure("2") do |config|
   # `config` applies to all VMs
   config.vm.box = "generic/focal20.04"
 
-  # scenario: install docker with get.docker.com, hence name `gety` 
-  config.vm.define "gety" do |gety|
-    gety.vm.hostname = "gety"
-    gety.vm.network "private_network", ip: "192.168.20.12"
-    # shell provisioner path instructs vagrant to download remote script (make sure you trust remote scripts and avoid http)
-    gety.vm.provision "shell", path: "https://get.docker.com"
-    # gety.vm.provision type: "shell", inline: $GETY_POST_INSTALL_SCRIPT   
+  # use `define` to create a nested configuration representing a specific VM
+  # https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
+  # `binary` block variable is the same type as `config`, scoped to a nested machine
+  config.vm.define "binary" do |binary|
+    binary.vm.hostname = "binary"
+    binary.vm.network "private_network", ip: "192.168.20.10"
+    binary.vm.provision "shell", path: "install.from.binaries.sh"
   end 
   
-  $GETY_POST_INSTALL_SCRIPT = <<-SHELL
-  
-  echo calling docker version should fail to show server side
-  docker version
-  # add vagrant user to the docker group thus granting accesss to the default unix socket at /var/run/docker.sock
-  usermod -aG vagrant docker
-  SHELL
-
-  $GETY_POST_INSTALL_POST_ADD_VAGRANT_USER_TO_DOCKER_GROUP = <<-SHELL
-    groups
-  SHELL
-
-
-  # # define describes a specific machine to Vagrant instead of the `default` single machine setup. 
-  # # you'll see the name `default` if you run `vagrant status` on a single machine config
-  # config.vm.define "binary" do |binary|
-  #   binary.vm.hostname = "binary"
-  #   binary.vm.network "private_network", ip: "192.168.20.10"
-  #   binary.vm.provision "shell", inline: $INSTALL_BINARY
-  # end 
-  # $INSTALL_BINARY = <<-SHELL
-  #   # todo
-  # SHELL
-
-
-
-  # # just mention use ansible - no time to do it wes nor does it really matter, does it? 
-  # # you could always use ansible in last module
-  # config.vm.define "ansibles" do |ansibles|
-  #   ansibles.vm.hostname = "binary"
-  #   ansibles.vm.network "private_network", ip: "192.168.20.16"
-  #   #snappy.vm.provision "ansible_local", playbook: ""
-  # end
 
 
   # ANSIBLE DOCKER route too?
