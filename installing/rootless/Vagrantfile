@@ -9,7 +9,3 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "https://get.docker.com", name: "dockers"
   
 end
-
-## Notes
-# - Also, test build's conveience script: https://test.docker.com 
-# - Question: shell provisioner taking in the script directly couples the example to vagrant, how do you feel about that? 
