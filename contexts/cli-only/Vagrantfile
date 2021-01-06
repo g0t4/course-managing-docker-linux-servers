@@ -1,19 +1,17 @@
-Vagrant.configure("2") do |config|
-
-  config.vm.box = "ubuntu/focal64"
-  config.vm.hostname = "cli-only"
+Vagrant.configure('2') do |config|
+  config.vm.box = 'ubuntu/focal64'
+  config.vm.hostname = 'cli-only'
 
   # this script (instead of vagrant) installs ansible on the guest
-  config.vm.provision "shell", path: "ensure.guest.has.ansible.sh"
+  config.vm.provision 'shell', path: 'ensure.guest.has.ansible.sh'
 
   # https://www.vagrantup.com/docs/provisioning/ansible_local
-  config.vm.provision "ansible_local" do |ansible|
+  config.vm.provision 'ansible_local' do |ansible|
     ansible.become = true
-    ansible.playbook = "client-only.yml"
+    ansible.playbook = 'client-only.yml'
     # control vagrant output verbosity if you have playbook problems
     # ansible.verbose = "vvv" # true/"v" "vvv" "vvvv"
   end
 
-  config.vm.network "private_network", ip: "192.168.30.102"
-
+  config.vm.network 'private_network', ip: '192.168.30.102'
 end
