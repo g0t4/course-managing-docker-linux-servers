@@ -1,29 +1,15 @@
-# Example of a 3rd party Docker Engine for Linux installers
-  # ubuntu + docker snap 
-  # https://snapcraft.io/ to learn more about snaps
-  # one of many considerations is the lag in unofficial channels when the official upstream builds come out (ie Docker 20.10 is out and the docker snap still installs 19.03.11 from its latest/stable channel)
+# modified version of snappy install example to have vagrant added to docker group to access the default docker unix socket 
+
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
   config.vm.hostname = "snappy-group"
 
+  config.vm.provision "shell", path: "add.vagrant.to.docker.group.sh"
   config.vm.provision "shell", inline: <<-SHELL
-    # more detailed install instructions here: 
-      # https://github.com/docker-snap/docker-snap
-    # adding docker group triggers the unix socket to be opened as root:docker not root:root
-    sudo addgroup --system docker
-    sudo adduser vagrant docker
-    # newgrp docker 
-      # if you add the group by hand you can use newgrp
-      # instead of rebooting the VM OR logout/in
-
-    # if you add the docker group after installing the docker snap and starting the corresponding service... then use the following 2 commands to restart the docker daemon so it can detect the docker group and use it when opening the unix socket as root:group
-    # sudo snap disable docker
-    # sudo snap enable docker
-
     sudo snap refresh
     sudo snap install docker
   SHELL
   
-  config.vm.network "private_network", ip: "192.168.30.12"
+  config.vm.network "private_network", ip: "192.168.30.104"
 
 end
