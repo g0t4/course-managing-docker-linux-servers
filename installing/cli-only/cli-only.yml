@@ -1,0 +1,51 @@
+---
+# adapted from https://docs.docker.com/engine/install/ubuntu/
+# tested on vagrant box ubuntu/focal (20.04)
+- hosts: all
+  tasks:
+    - name: ensure docker os requirements are met https://docs.docker.com/engine/install/ubuntu/#os-requirements
+      assert:
+        that:
+          - ansible_distribution_version in ["16.04", "18.04", "20.04", "20.10"]
+          - ansible_distribution == 'Ubuntu'
+    - name: ensure old docker packages are absent
+      apt:
+        state: absent
+        pkg: docker docker-engine docker.io containerd runc
+    - name: install deps for installing from https repos - per docker docs
+      apt:
+        update_cache: yes
+        pkg:
+          # https://packages.ubuntu.com/focal/all/apt-transport-https/
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+    - name: add docker's key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+    - name: add docker's apt repo
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    - name: ensure cli only
+      apt:
+        update_cache: yes
+        pkg: docker-ce-cli
+#
+## Ansible links
+# - https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+#
+#
+## FROM HERE:
+# - confirm units not installed for Docker Engine daemon
+# - `systemctl list-sockets  --all`
+# - `systemctl list-unit-files  --all`
+# - also confirm by docker version as root
+# - `sudo docker version` this should still fail to show server side asking if daemon is operational
+# - There's no need to add the vagrant user to docker group if no local daemon via a unix socket!
+#   - That said, you might want to configure connections (contexts) with ansbile too!
+# - You can adapt this playbook to isntall the full Docker Engine (not just client)
+#   pkg: docker-ce docker-ce-cli containerd.io
+# - if desired, follow post-install steps and mod this playbook as an exercise.
+#   - notably add the vagrant user to the docker group and ensure you can connect to the daemon too!

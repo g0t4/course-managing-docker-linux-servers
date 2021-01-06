@@ -1,0 +1,15 @@
+# modified version of snappy install example to have vagrant added to docker group to access the default docker unix socket 
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.hostname = "snappy-group"
+
+  config.vm.provision "shell", path: "add.vagrant.to.docker.group.sh"
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo snap refresh
+    sudo snap install docker
+  SHELL
+  
+  config.vm.network "private_network", ip: "192.168.30.104"
+
+end

@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This is known as a `multi-machine environment` in vagrant
+# multi-machine docs: https://www.vagrantup.com/docs/multi-machine
+
+Vagrant.configure('2') do |config|
+  # `config` applies to all VMs
+  config.vm.box = 'generic/focal20.04'
+
+  # use `define` to create a nested configuration representing a specific VM
+  # https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
+  # `binary` block variable is the same type as `config`, scoped to a nested machine
+  config.vm.define 'binary' do |binary|
+    binary.vm.hostname = 'binary'
+    binary.vm.network 'private_network', ip: '192.168.20.10'
+    binary.vm.provision 'shell', path: 'install.from.binaries.sh'
+    # see end of install script for manually launching dockerd
+  end
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.cpus = 4
+    vb.memory = '8192'
+  end
+end
