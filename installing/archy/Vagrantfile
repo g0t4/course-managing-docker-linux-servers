@@ -1,17 +1,16 @@
-
-# arch tends to keep up to date with upstreams and goal is minimal mods to upstream builds
-
 Vagrant.configure("2") do |config|
   
   config.vm.box = "generic/arch"
   config.vm.hostname = "archy"
-
-
-  # docker package: https://archlinux.org/packages/community/x86_64/docker/
-  config.vm.provision "shell", inline: <<-SHELL
-    
-  SHELL
-
   config.vm.network "private_network", ip: "192.168.30.105"
 
+  config.vm.provision "shell", path: "install.docker.sh", name: "install"
+  config.vm.provision "shell", path: "mod.both.sh", name: "mod.both"
+  
 end
+
+
+# TODO? use config file too, sep example?
+
+# FYI synced folder is disabled for this box
+#   config.vm.synced_folder ".", "/vagrant", disabled: true
