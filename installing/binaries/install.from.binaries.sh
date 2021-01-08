@@ -20,8 +20,9 @@ tar xzvf "docker-${VERSION}.tgz"
 # or modify path to include binaries folder
 sudo cp docker/* /usr/bin/
 
-# add vagrant user to docker group to access socket
-sudo usermod -aG docker vagrant
+# add a docker group and assign vagrant user membership 
+sudo addgroup --system docker
+sudo adduser vagrant docker
 
 # start dockerd by hand:
 # sudo dockerd &
