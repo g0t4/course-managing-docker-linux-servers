@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Ensure learning VM hostnames in /etc/hosts 
+    diff: yes
+    become: yes
+    blockinfile:
+      path: /etc/hosts
+      marker: '# {mark} ANSIBLE MANAGED BLOCK - mdls'
+      create: no
+      state: present
+      block: |
+        192.168.30.101  getdc
+        192.168.30.102  cli-only
+        192.168.30.103  snappy
+        192.168.30.104  snappy-group
+        192.168.30.105  archy
+        192.168.30.108  centos-8
+        192.168.30.109  binaries
+        192.168.30.110  rootless
