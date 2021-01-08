@@ -13,7 +13,7 @@ Vagrant.configure('2') do |config|
   # `binary` block variable is the same type as `config`, scoped to a nested machine
   config.vm.define 'binary' do |binary|
     binary.vm.hostname = 'binary'
-    binary.vm.network 'private_network', ip: '192.168.20.10'
+    binary.vm.network 'private_network', ip: '192.168.30.108'
     binary.vm.provision 'shell', path: 'install.from.binaries.sh'
     # see end of install script for manually launching dockerd
   end
