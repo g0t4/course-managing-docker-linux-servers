@@ -16,8 +16,10 @@ end
 
 ## Exercises:
 
+# echo https://docs.docker.com/engine/install/linux-postinstall/#configure-where-the-docker-daemon-listens-for-connections
+
 # access both unix locally and tcp remotely:
-  
+
 # vagrant ssh
   # local via unix socket
     # docker ps
