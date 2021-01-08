@@ -8,4 +8,43 @@ Vagrant.configure('2') do |config|
   config.vm.provision 'shell', path: 'scripts/030-install.docker.sh', name: 'install'
   config.vm.provision 'shell', path: 'scripts/040-modify.docker.socket.sh', name: 'modify'
   config.vm.provision 'shell', path: 'scripts/050-config.learn.arch.sh', name: 'learns'
+
 end
+
+
+
+
+## Exercises:
+
+# access both unix locally and tcp remotely:
+  
+# vagrant ssh
+  # local via unix socket
+    # docker ps
+    # docker context ls
+    # docker context inspect
+    # docker context inspect
+  # local via localhost (tcp)
+    # DOCKER_HOST=tcp docker context ls
+    # DOCKER_HOST=localhost docker context ls
+    # DOCKER_HOST=tcp:// docker context inspect
+      # inspect is very granular, great way to learn what shortcuts there are for DOCKER_HOST=unix:// or DOCKER_HOST=tcp://
+    # export DOCKER_HOST=foo # fake context (show failure to list images)
+      # docker context ls/inspect (default)
+        # TLDR - a tool to help understand what is taking precedence
+      # docker -H unix:// # see how this overrides DOCKER_HOST env var
+    # config entry
+
+      # unset DOCKER_HOST
+
+  # remote via tcp:
+    # curl 192.168.30.105:2375/info
+    # DOCKER_HOST=192.168.30.105 docker ps
+    # docker context ls
+    # vs:
+    # DOCKER_HOST=192.168.30.105 docker context ls 
+    # export DOCKER_HOST=192.168.30.105
+      # docker context ls
+    # docker -H unix:// context ls
+      # CLI args win over env vars
+  # TLDR: `default` context represents historical env/cli args/config files as the dynamic representation of the current state of those mechanisms
