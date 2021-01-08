@@ -1,12 +1,9 @@
 #!/bin/sh
 
-
-sudo pacman --noconfirm -Sy \
+sudo pacman --noconfirm -S \
   tree \
-  jq
-
-
-
+  jq \
+  pacman-contrib
 
 ## NOTES
 
@@ -15,7 +12,6 @@ sudo pacman --noconfirm -Sy \
 # pacman -Sh # help for options to -S (remote packages)
 # find packages
 # pacman -Ss tree # search remote repositories for string, "tree" in this case
-
 
 ## local packages
 # what package owns a file
