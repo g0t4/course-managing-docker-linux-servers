@@ -1,25 +1,39 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-# This is known as a `multi-machine environment` in vagrant
-# multi-machine docs: https://www.vagrantup.com/docs/multi-machine
-
 Vagrant.configure('2') do |config|
   # `config` applies to all VMs
-  config.vm.box = 'generic/ubuntu2004'
+  config.vm.box = 'ubuntu/focal64'
+  config.vm.provision 'shell', path: 'scripts/001-config.learn.ubuntu.sh'
+  config.vm.provision 'shell', path: 'https://get.docker.com'
+  config.vm.provision 'shell',
+                      path: 'scripts/003-config.docker.after.install.sh'
 
   # use `define` to create a nested configuration representing a specific VM
-  # https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
-  # `binary` block variable is the same type as `config`, scoped to a nested machine
-  config.vm.define 'binary' do |binary|
-    binary.vm.hostname = 'binary'
-    binary.vm.network 'private_network', ip: '192.168.30.109'
-    binary.vm.provision 'shell', path: 'install.from.binaries.sh'
-    # see end of install script for manually launching dockerd
+  # - https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
+  config.vm.define 'swarm1' do |swarm1|
+    # `swarm1` block variable has the same type as `config`, scoped to a nested machine
+    #  - GOTCHA is to use `config.` when you intended to use `swarm1.`
+    #  - even inside the define block, `config.` applies globally!
+    swarm1.vm.hostname = 'swarm1'
+    swarm1.vm.network 'private_network', ip: '192.168.30.130' # 130-134
+    # TODO provision - init swarm cluster
   end
 
+  # `2..3` is a range in ruby
+  for i in 2..3
+    # notice the use of string interpolation for dynamic values (hostname, IP)
+    # if you don't want these VMs starting up right away:
+    # - `config.vm.define "swarm#{i}", autostart: false do |nested|`
+    # - [autostat docs](https://www.vagrantup.com/docs/multi-machine#autostart-machines)
+    config.vm.define "swarm#{i}" do |nested|
+      nested.vm.hostname = "swarm#{i}"
+      nested.vm.network 'private_network', ip: "192.168.30.13#{i}"
+      # TODO provision - join swarm on each node
+    end
+  end
+
+  # CAUTION: this is per VM! adjust as necessary for your hardware
+  # decrease the number of VMs with the loop counter if need be
   config.vm.provider 'virtualbox' do |vb|
-    vb.cpus = 4
-    vb.memory = '8192'
+    vb.cpus = 2
+    vb.memory = '4096'
   end
 end
