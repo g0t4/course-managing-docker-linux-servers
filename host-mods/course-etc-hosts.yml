@@ -24,11 +24,11 @@
         # 192.168.30.111  client-secured
         # 192.168.30.119  rootless
         
-        # swarm examples
-        192.168.30.130  swarm1
-        192.168.30.131  swarm2
-        192.168.30.132  swarm3
-        192.168.30.132  swarm4 
+        # swarm examples (up to 4 swarm machines)
+        192.168.30.130  swarm0
+        192.168.30.131  swarm1
+        192.168.30.132  swarm2
+        192.168.30.133  swarm3 
 
         # todo k8s examples
         # I believe I will use minikube for k8s demos, not sure yet so I'm reserving address space just in case

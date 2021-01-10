@@ -7,28 +7,32 @@ Vagrant.configure('2') do |config|
 
   # use `define` to create a nested configuration representing a specific VM
   # - https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
-  config.vm.define 'swarm1' do |swarm1|
-    # `config` applies to all VMs
-    # `swarm1` block variable has the same type as `config`, scoped to a nested machine
-    #  - GOTCHA is to use `config.` when you intended to use `swarm1.`
-    #  - even inside the define block, `config.` applies globally!
-    swarm1.vm.hostname = 'swarm1'
-    swarm1.vm.network 'private_network', ip: '192.168.30.130' # 130-134
-    # TODO provision - init swarm cluster
-  end
+  # `config` applies to all VMs
+  # `swarm1` block variable has the same type as `config`, scoped to a nested machine
+  #  - GOTCHA is to use `config.` when you intended to use `swarm1.`
+  #  - even inside the define block, `config.` applies globally!
 
-
-  (2..3).each do |num|
+  (1..3).each do |num|
     config.vm.define "swarm#{num}" do |nested|
       nested.vm.hostname = "swarm#{num}"
       nested.vm.network 'private_network', ip: "192.168.30.13#{num}"
+
       # TODO provision - join swarm on each node
+
+      case num
+      when 1
+        # 1st VM only
+        nested.vm.provision 'shell', inline: <<-SHELL
+      	  docker swarm init --advertise-addr 192.168.30.131
+    	SHELL
+      else
+        # all other VMs
+        #nested.vm.provision 'shell', inline: <<-SHELL
+        #  docker swarm join
+        #SHELL
+      end
     end
   end
-
-
-
-
 
   # CAUTION: this is per VM! adjust as necessary for your hardware
   # decrease the number of VMs with the loop counter if need be
