@@ -1,5 +1,4 @@
 Vagrant.configure('2') do |config|
-  # `config` applies to all VMs
   config.vm.box = 'ubuntu/focal64'
   config.vm.provision 'shell', path: 'scripts/001-config.learn.ubuntu.sh'
   config.vm.provision 'shell', path: 'https://get.docker.com'
@@ -9,6 +8,7 @@ Vagrant.configure('2') do |config|
   # use `define` to create a nested configuration representing a specific VM
   # - https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
   config.vm.define 'swarm1' do |swarm1|
+    # `config` applies to all VMs
     # `swarm1` block variable has the same type as `config`, scoped to a nested machine
     #  - GOTCHA is to use `config.` when you intended to use `swarm1.`
     #  - even inside the define block, `config.` applies globally!
@@ -17,18 +17,18 @@ Vagrant.configure('2') do |config|
     # TODO provision - init swarm cluster
   end
 
-  # `2..3` is a range in ruby
-  for i in 2..3
-    # notice the use of string interpolation for dynamic values (hostname, IP)
-    # if you don't want these VMs starting up right away:
-    # - `config.vm.define "swarm#{i}", autostart: false do |nested|`
-    # - [autostat docs](https://www.vagrantup.com/docs/multi-machine#autostart-machines)
-    config.vm.define "swarm#{i}" do |nested|
-      nested.vm.hostname = "swarm#{i}"
-      nested.vm.network 'private_network', ip: "192.168.30.13#{i}"
+
+  (2..3).each do |num|
+    config.vm.define "swarm#{num}" do |nested|
+      nested.vm.hostname = "swarm#{num}"
+      nested.vm.network 'private_network', ip: "192.168.30.13#{num}"
       # TODO provision - join swarm on each node
     end
   end
+
+
+
+
 
   # CAUTION: this is per VM! adjust as necessary for your hardware
   # decrease the number of VMs with the loop counter if need be

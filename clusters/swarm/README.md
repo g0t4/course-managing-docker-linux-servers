@@ -15,7 +15,6 @@
 
 - This example uses a `vagrant` [`multi-machine environment`](https://www.vagrantup.com/docs/multi-machine)
   - I have my own [notes about multi-machine configs](https://github.com/g0t4/wes-docs/blob/master/vagrants/multi-machine.md)
-
-- A loop is used to repeat configuration of all but the first VM!
+- How multiple machines are defined in this example:
   - `swarm1` is built outside the loop to show how to mix and match styles.
   - `swarm(2|3|4)` are built via a loop to reduce duplication
