@@ -10,11 +10,25 @@
       create: no
       state: present
       block: |
+        # installing examples
         192.168.30.101  getdc
         192.168.30.102  cli-only
         192.168.30.103  snappy
-        192.168.30.104  snappy-group
         192.168.30.105  archy
         192.168.30.108  centos-8
         192.168.30.109  binaries
-        192.168.30.110  rootless
+        
+        # security focused examples
+        192.168.30.111  secured
+        # 192.168.30.111  client-secured
+        # 192.168.30.119  rootless
+        
+        # swarm examples
+        192.168.30.130  swarm1
+        192.168.30.131  swarm2
+        192.168.30.132  swarm3
+        192.168.30.132  swarm4 
+
+        # todo k8s examples
+        # I believe I will use minikube for k8s demos, not sure yet so I'm reserving address space just in case
+        # 192.168.30.150 k8s1
