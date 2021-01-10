@@ -18,3 +18,7 @@
 - How multiple machines are defined in this example:
   - `swarm1` is built outside the loop to show how to mix and match styles.
   - `swarm(2|3|4)` are built via a loop to reduce duplication
+- Helpful commands
+  - `vagrant status` - what names does it show for defined machines? Is that what you wanted?
+  - `vagrant validate` - see if you have any issues with your Vagrantfile before you try to use it!
+    - Mostly syntax
