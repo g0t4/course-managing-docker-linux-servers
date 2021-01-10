@@ -1,23 +1,16 @@
+Vagrant.configure('2') do |config|
+  config.vm.box = 'ubuntu/focal64'
+  config.vm.hostname = 'snappy'
+  config.vm.network 'private_network', ip: '192.168.30.103'
 
-# Example of a 3rd party Docker Engine for Linux installers
-  # ubuntu + docker snap 
-  # https://snapcraft.io/ to learn more about snaps
-  # one of many considerations is the lag in unofficial channels when the official upstream builds come out (ie Docker 20.10 is out and the docker snap still installs 19.03.11 from its latest/stable channel - at time of recording)
-Vagrant.configure("2") do |config|
-  
-  config.vm.box = "ubuntu/focal64"
-  config.vm.hostname = "snappy"
+  config.vm.provision 'shell', inline: <<-SHELL
+    sudo addgroup --system docker
+    sudo adduser vagrant docker
+  SHELL 
 
-  # general install instructions for `docker` `snap`:
-  # - https://snapcraft.io/install/docker/ubuntu
-  # - snapd is installed & running (for focal 20.04), so just install the docker snap:
   config.vm.provision "shell", inline: <<-SHELL
     sudo snap refresh
     sudo snap install docker
-
-    # NOTE: this snap example doesn't add vagrant to the docker group, see `snappy-group` example for that extra set of steps
   SHELL
-
-  config.vm.network "private_network", ip: "192.168.30.103"
-
+  
 end
