@@ -11,6 +11,7 @@
       state: present
       block: |
         # installing examples
+          # avail 104,106,107
         192.168.30.101  getdc
         192.168.30.102  cli-only
         192.168.30.103  snappy
@@ -19,7 +20,7 @@
         192.168.30.109  binaries
         
         # security focused examples
-        192.168.30.111  secured
+        192.168.30.110  secured
         # 192.168.30.111  client-secured
         # 192.168.30.119  rootless
         
