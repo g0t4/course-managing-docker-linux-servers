@@ -11,6 +11,15 @@
 - Exercise 2: build a `heterogenous` `cluster` with say 2 `archlinux` `VMs` and 2 `ubuntu` `VMs`.
 - A great learning opportunity to familiarize yourself with both `docker` and `vagrant`!
 
+## Good to know about `*.vm.define` 
+
+- use `define` to create a nested configuration representing a specific VM
+  - https://www.vagrantup.com/docs/multi-machine#defining-multiple-machines
+- `config` applies to all VMs (that's the name in this sample)
+  - `manager`/`worker` block variable has the same type as `config`, scoped to a nested machine
+  - GOTCHA: don't use `config.` when you intended to use `manager`/`worker` 
+  - even inside the define block, `config.` applies globally!
+
 ## vagrants notes:
 
 - This example uses a `vagrant` [`multi-machine environment`](https://www.vagrantup.com/docs/multi-machine)
