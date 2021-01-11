@@ -9,6 +9,7 @@ Vagrant.configure('2') do |config|
     config.vm.define "m#{num}" do |manager|
       manager.vm.hostname = "m#{num}"
       manager.vm.network 'private_network', ip: "192.168.30.13#{num}"
+      manager_resources(manager)
     end
   end
 
@@ -17,12 +18,20 @@ Vagrant.configure('2') do |config|
     config.vm.define "w#{num}" do |worker|
       worker.vm.hostname = "w#{num}"
       worker.vm.network 'private_network', ip: "192.168.30.14#{num}"
+      worker_resources(worker)
     end
   end
+end
 
-  # CAUTION: this is per VM! adjust as necessary for your hardware
-  # decrease the number of VMs with the loop counter if need be
-  config.vm.provider 'virtualbox' do |vb|
+# adjust hadware requirements to your environment and needs
+def worker_resources(worker)
+  worker.vm.provider 'virtualbox' do |vb|
+    vb.cpus = 1
+    vb.memory = '2048'
+  end
+end
+def manager_resources(manager)
+  manager.vm.provider 'virtualbox' do |vb|
     vb.cpus = 2
     vb.memory = '4096'
   end
