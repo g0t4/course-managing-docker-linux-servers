@@ -20,24 +20,18 @@ tar xzvf "docker-${VERSION}.tgz"
 # or modify path to include binaries folder
 sudo cp docker/* /usr/bin/
 
-# add a docker group and assign vagrant user membership 
+# add a docker group and assign vagrant user membership
 sudo addgroup --system docker
 sudo adduser vagrant docker
 
 # start dockerd by hand:
 # sudo dockerd &
 # sudo dockerd -H tcp:// # listen on default port 2375
-# - options can be added 
+# - options can be added
 #   - as CLI args
 #   - or as env vars
 #   - or add options to a deamon.json config file:
 #     - /etc/docker/daemon.json
 
-
 # test a container
 # sudo docker run --rm hello-world
-
-
-
-
-
