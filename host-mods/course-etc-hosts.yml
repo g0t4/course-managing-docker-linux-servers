@@ -35,3 +35,4 @@
         # todo k8s examples
         # I believe I will use minikube for k8s demos, not sure yet so I'm reserving address space just in case
         # 192.168.30.150 k8s1
+        192.168.30.201 microk8s
