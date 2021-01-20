@@ -3,14 +3,17 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = 'snappy'
   config.vm.network 'private_network', ip: '192.168.30.103'
 
-  config.vm.provision 'shell', inline: <<-SHELL
-    sudo addgroup --system docker
-    sudo adduser vagrant docker
-  SHELL 
+  config.vm.provision 'shell', inline: $install_group
 
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo snap refresh
-    sudo snap install docker
-  SHELL
-  
+  config.vm.provision 'shell', inline: $install_docker_snap
 end
+
+$install_group = <<-SHELL
+  sudo addgroup --system docker
+  sudo adduser vagrant docker
+SHELL
+
+$install_docker_snap = <<-SHELL
+  sudo snap refresh
+  sudo snap install docker
+SHELL
