@@ -11,5 +11,6 @@ sudo apt-get update
 sudo apt-get install -y \
   tree \
   psmisc \
-  pslist
+  pslist \
+  jq
   # todo batcat
