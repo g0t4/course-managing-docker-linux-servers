@@ -13,6 +13,8 @@ curl -fsSL \
 # extract binaries
 tar xzvf "docker-${VERSION}.tgz"
 
+# UPDATE advice: perhaps diff old and new packages!
+
 # copy or link binaries into directory in path already
 # or modify path to include binaries folder
 sudo cp docker/* /usr/bin/
