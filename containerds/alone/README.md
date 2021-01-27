@@ -9,7 +9,7 @@
   - [Getting Started - Go code](https://containerd.io/docs/getting-started/)
 - Remember the [downloads](https://containerd.io/downloads) has builds to download and instructions for how to do so.
   - Includes links to older versions (way back)
-- [GH containerd/containerd.io](https://github.com/containerd/containerd.io) has docs 
+- [GH containerd/containerd.io](https://github.com/containerd/containerd.io) has docs
   - [including in the `docs` folder, docs not yet on site](https://github.com/containerd/containerd/tree/master/docs)
   - **notable docs**
     - [ops](https://github.com/containerd/containerd/blob/master/docs/ops.md)
@@ -30,3 +30,10 @@ Great visual of architecture:
 ## Great visual of how modularized the container world has become
 
 ![](https://containerd.io/img/architecture.png)
+
+## `containerd` design docs
+
+- Design docs:
+  - https://github.com/containerd/containerd/tree/master/design
+
+![](https://raw.githubusercontent.com/containerd/containerd/master/design/architecture.png)
