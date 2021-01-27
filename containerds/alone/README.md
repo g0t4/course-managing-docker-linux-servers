@@ -18,22 +18,48 @@
   - Come bundled with some downloads, so either read on GitHub or watch out for those in extracted files.
 - WARNING: `ctr` is not guaranteed to exist forever and have any degree of stability, use it to learn but don't rely on it for mission critical scenarios. I see it solely as a learning tool.
 
-## docker + containerd
+## Docs & Visuals
 
-Great visual of architecture:
+- [scope](https://containerd.io/scope/) - a subset of `Docker Engine` features, ie not building (BuildKit consumes/depends on containerd's API)
+- [docs](https://github.com/containerd/containerd/blob/master/docs)
+  - [plugins](https://github.com/containerd/containerd/blob/master/docs/PLUGINS.md)
+    - in many ways `containerd` is a framework of plugins that provide functionality resulting in a `"high level"` container runtime.
+    - extensive plugin design:
+      - `smart clients` are `"plugins"` that extend `containerd` thus affording higher level building blocks (i.e. `BuildKit`)
+        - Instead of mashing build features into `containerd`
+        - Then, `"plugins"` like `BuildKit` are extended into new `"plugins"` thus providing `dockerd`!
+        - Producing a fractal of `"plugins"` to replace the once monolithic daemon!
+        - When I say `"plugins"`, it's just a mindset, not official verbiage! A wesism 😄
+      - `built-in plugins`
+        - built into `containerd`
+        - some activate based on the environment (say a linux module's presence) or based on `containerd` config
+        - list plugins with `containerd plugins ls`
+      - `external plugins` via:
+        - binary in path (ie `runtime v2` interface)
+        - or, a `proxy plugin` which involves configuring `containerd` to point at the `grpc` endpoint
+  - [runc dependency](https://github.com/containerd/containerd/blob/master/docs/RUNC.md) - the default underlying (low-level) OCI compliant runtime (OCI reference implementation)
+  - [go docs](https://godoc.org/github.com/containerd/containerd)
+
+### docker + containerd
+
 ![](https://raw.githubusercontent.com/containerd/containerd/master/docs/containerd.png)
 
-## k8s + [docker] + containerd
-
-![](https://raw.githubusercontent.com/containerd/containerd/master/docs/performance.png)
-
-## Great visual of how modularized the container world has become
+### container ecosystem modularity
 
 ![](https://containerd.io/img/architecture.png)
+[source](https://containerd.io)
 
-## `containerd` design docs
-
-- Design docs:
-  - https://github.com/containerd/containerd/tree/master/design
+### design
 
 ![](https://raw.githubusercontent.com/containerd/containerd/master/design/architecture.png)
+[design docs](https://github.com/containerd/containerd/tree/master/design)
+
+### k8s + [docker] + containerd
+
+![](https://raw.githubusercontent.com/containerd/containerd/master/docs/performance.png)
+_Why k8s is simplifying to bypass overhead of docker and go straight to containerd_
+
+### docs/cri
+
+![](https://raw.githubusercontent.com/containerd/containerd/master/docs/cri/architecture.png)
+[docs/cri](https://github.com/containerd/containerd/tree/master/docs/cri)
