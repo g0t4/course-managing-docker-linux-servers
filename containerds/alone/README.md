@@ -15,9 +15,16 @@
     - [ops](https://github.com/containerd/containerd/blob/master/docs/ops.md)
       - [systemd service unit](https://github.com/containerd/containerd/blob/master/docs/ops.md#systemd)
 - [man pages](https://github.com/containerd/containerd/tree/master/docs/man)
-  - Come bundled with some downloads, so either read on GitHub or watch out for those in extracted files.
-- WARNING: `ctr` is not guaranteed to exist forever and have any degree of stability, use it to learn but don't rely on it for mission critical scenarios. I see it solely as a learning tool.
-
+  - `ubuntu`'s unofficial package includes man pages
+  - so does docker's `.deb` package
+  - online:
+    - https://www.mankier.com/8/containerd
+    - https://www.mankier.com/8/ctr
+    - https://www.mankier.com/8/containerd-config
+    - https://www.mankier.com/5/containerd-config.toml
+- WARNING: `ctr` is not guaranteed to exist forever and have any degree of stability, use it to learn but don't rely on it for mission critical scenarios. I see it solely as a learning tool.  
+  - autocomplete is helpful, see my samples for scripts
+  - instructions for zsh & bash: [containerd readme](https://github.com/containerd/containerd/blob/master/README.md#enabling-command-auto-completion)
 ## Docs & Visuals
 
 - [scope](https://containerd.io/scope/) - a subset of `Docker Engine` features, ie not building (BuildKit consumes/depends on containerd's API)
