@@ -26,6 +26,7 @@
         
         # containerd examples
         192.168.30.120 alone
+        192.168.30.121 alone-pkg
 
         # swarm examples (up to 3 managers and 3 workers, adjust as you see fit)
         192.168.30.131  m1 
