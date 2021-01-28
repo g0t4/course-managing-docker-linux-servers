@@ -3,5 +3,10 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = 'alone'
   config.vm.network 'private_network', ip: '192.168.30.120'
   config.vm.provision 'shell', path: 'containerd.from.github.sh'
-  config.vm.provision 'shell', path: 'scripts/runc.from.github.sh'
+
+  # config.vm.provision 'shell', path: 'scripts/runc.from.github.sh'
+  # disabling so we can demo pluggable/discoverability of containerd
+  # - more about extending containerd -> containerd
+  #   - see README.md -> search for plugins
+  #   - try kata-containers challenge!
 end

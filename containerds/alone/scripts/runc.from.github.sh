@@ -11,6 +11,7 @@ _VERSION="v1.0.0-rc92"
 sudo wget \
   https://github.com/opencontainers/runc/releases/download/${_VERSION}/runc.amd64 \
   --output-document /bin/runc
+sudo chmod +x /bin/runc
 # static linked to https://github.com/seccomp/libseccomp
 
 
