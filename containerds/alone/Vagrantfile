@@ -9,4 +9,5 @@ Vagrant.configure('2') do |config|
   # - more about extending containerd -> containerd
   #   - see README.md -> search for plugins
   #   - try kata-containers challenge!
+  #     config.vm.provision 'shell', path: 'scripts/kata.from.github.sh'
 end
