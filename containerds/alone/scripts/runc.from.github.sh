@@ -25,6 +25,4 @@ sudo wget \
 # Read the runtime-spec
 # https://github.com/opencontainers/runtime-spec
 # 
-# What are kata-containers?
-# Can you make them work with containerd?
-# https://github.com/kata-containers/kata-containers/releases/tag/2.0.1
+# see kata.from.github.sh for a challenge
