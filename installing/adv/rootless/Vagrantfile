@@ -3,8 +3,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
   config.vm.hostname = "rootless"
 
-  config.vm.network "private_network", ip: "192.168.30.110"
-
+  config.vm.network "private_network", ip: "192.168.30.119"
+  
   config.vm.provision "shell", path: "config.learn.ubuntu.sh", name: "learns"
   config.vm.provision "shell", path: "https://get.docker.com", name: "dockers"
   
