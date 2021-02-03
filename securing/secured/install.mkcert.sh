@@ -11,7 +11,5 @@ sudo +x mkcert
 sudo cp mkcert /usr/bin/.
 
 
-# the first time you run mkcert it will generate a root CA
-# - use `mkcert -ROOTCA` to print the location
 # - consider using it for more than just docker, see its docs for more
   # - note: https://github.com/FiloSottile/mkcert#supported-root-stores

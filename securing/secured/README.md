@@ -1,19 +1,25 @@
 # secured
 
-The Docker Engine daemon is traditionally run with root privilege.
+- problem:
+  - `dockerd` is traditionally run as root
+  - anyone that can access the API has **root access**
+    - sky's the limit
+    - launch `--privileged` containers!
+  - also true for the unix socket hosted API
+    - hence the default, restricted access
+    - authorizing acccess is typically handled by group membership (or other fs permissions)
+- one solution:
+  - TLS + TCP socket hosting the daemon API.
 
-- Thus anyone that can access the API has **root access**.
-- Sky's the limit. They could launch privileged containers that can compromise every aspect of your system!
-- This is equally true for the unix socket hosted API which is why it is protected even locally!
-
-There is a new [rootless mode for Docker Engine](https://docs.docker.com/engine/security/rootless/) but that just limits the attack scope.
-
-This learning VM is about experimenting with TLS to lock down a TCP socket hosting the daemon API.
 
 - First, the client needs to **verify the server's identity** via a server certificate.
   - This has the added benefit of encrypting communications so outside attackers can't peak inside.
 - **Second**, the server needs to **verify the client's identity** via a client certificate.
   - This affords not just authentication but authorization, all via a certificate. Albeit coarse-grained authorization--all or none. In most situations that's sufficient.
+
+## What about rootless mode?
+
+There is a new [rootless mode for Docker Engine](https://docs.docker.com/engine/security/rootless/) but that just limits the attack scope. 
 
 ## How to obtain keys and certs to learn? `mkcert` it is!
 
