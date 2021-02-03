@@ -21,7 +21,6 @@
         
         # security focused examples
         192.168.30.110  secured
-        # 192.168.30.111  client-secured
         # 192.168.30.119  rootless
         
         # containerd examples
