@@ -28,11 +28,17 @@ sudo systemctl restart docker.socket
 # curl http://localhost:2375/info
 
 
-## NOTES:
-# - good systemd refs online:
+## systemd notes:
+# - getting help:
+#   - `man systemd.index` is a gateway to the `systemd` docs!
+#   - search the web for `man systemd.index`
+#     - access these same man pages online
+#     - i.e. https://www.freedesktop.org/software/systemd/man/
 #   - https://wiki.archlinux.org/index.php/Systemd#Using_units
 #   - https://wiki.archlinux.org/index.php/Systemd#Drop-in_files
 #     - Drop-ins are additive
-# - systemd - -H cli arg wins over hosts in daemon config file and since most systemd service unit files define -H cli arg then this has to be altered or cleared first for the daemon config file to work for chaning hosts
+# - With systemd hosting the docker daemon, if you want to use dockerd's config file `/etc/docker/daemon.json` then you should know: 
+  # most systemd service unit files for dockerd define -H because they can take advantage of socketd activation then the cli arg will conflict with the config file
+  # TLDR only one place can configure each option (config file or CLI args... this applies even beyond systemd)
 # - docker docs on modifying config: https://docs.docker.com/engine/install/linux-postinstall/#control-where-the-docker-daemon-listens-for-connections
 # - sudo + tee - write to privileged filesystem locations 

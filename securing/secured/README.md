@@ -7,19 +7,18 @@
     - launch `--privileged` containers!
   - also true for the unix socket hosted API
     - hence the default, restricted access
-    - authorizing acccess is typically handled by group membership (or other fs permissions)
+    - authorizing access is typically handled by group membership (or other fs permissions)
 - one solution:
   - TLS + TCP socket hosting the daemon API.
-
-
 - First, the client needs to **verify the server's identity** via a server certificate.
   - This has the added benefit of encrypting communications so outside attackers can't peak inside.
 - **Second**, the server needs to **verify the client's identity** via a client certificate.
-  - This affords not just authentication but authorization, all via a certificate. Albeit coarse-grained authorization--all or none. In most situations that's sufficient.
+  - This affords not just authentication but authorization, all via a certificate. 
+  - Albeit coarse-grained authorization--all or none. In most situations that's sufficient.
 
 ## What about rootless mode?
 
-There is a new [rootless mode for Docker Engine](https://docs.docker.com/engine/security/rootless/) but that just limits the attack scope. 
+There is a new [rootless mode for Docker Engine](https://docs.docker.com/engine/security/rootless/)
 
 ## How to obtain keys and certs to learn? `mkcert` it is!
 
@@ -45,14 +44,54 @@ There is a new [rootless mode for Docker Engine](https://docs.docker.com/engine/
 
 - [`PKCS` - `Public Key Cryptography Standards`](https://en.wikipedia.org/wiki/PKCS)
 
-### Real Systems
+### docker to the cloud
 
-These scripts are not meant for prod/real use!
+Explore these on your own or watch for courses in the future about these exciting, developing features. Just run docker from your desktop and connect seamlessly to cloud providers for infinite scale, security, simplicity (hopefully on cloud providers end too!). And run familiar `docker container run` or `docker compose` commands to launch containers or entire apps just like on the desktop!
 
-- follow (or create) established protocols for your organization for securing actual keys/certs
-- or consider services that just make it all happen for you
-- or consider the value of docker to the cloud
-  - `docker context create aci/ecs`
+_watch the following resources for additions too!_
+
+- [Docker Docs](https://docs.docker.com)
+  - [ACI Compose features](https://docs.docker.com/cloud/aci-compose-features/)
+    - [Docker and ACI](https://docs.docker.com/cloud/aci-integration/)
+    - [ACI container features](https://docs.docker.com/cloud/aci-container-features/)
+    - [ACI Compose features](https://docs.docker.com/cloud/aci-compose-features/)
+  - [Docker and ECS](https://docs.docker.com/cloud/ecs-integration/)
+    - [Docker ECS integration architecture](https://docs.docker.com/cloud/ecs-architecture/)
+    - [ECS Compose features](https://docs.docker.com/cloud/ecs-compose-features/)
+    - [ECS Compose examples](https://docs.docker.com/cloud/ecs-compose-examples/)
+  - [Deploy your app (node)](https://docs.docker.com/language/nodejs/deploy/)
+- [Docker Blog](https://www.docker.com/blog)
+  - [Docker Open Sources Compose for Amazon ECS and Microsoft ACI](https://www.docker.com/blog/open-source-cloud-compose/)
+  - [Deploy Stateful Docker Containers with Amazon ECS and Amazon EFS](https://www.docker.com/blog/deploy-stateful-docker-containers-with-amazon-ecs-with-amazon-efs/)
+  - Azure / ACI
+    - [2020-11-05 Compose CLI ACI Integration Now Available](https://www.docker.com/blog/compose-cli-aci-integration-now-available/)
+    - [2020-09-16 Check out the Azure CLI experience now available in Desktop Stable](https://www.docker.com/blog/check-out-the-azure-cli-experience-now-available-in-desktop-stable/)
+    - [2020-07-16 Deploying a Minecraft Docker Server to the cloud](https://www.docker.com/blog/deploying-a-minecraft-docker-server-to-the-cloud/)
+    - [2020-07-13 How To Deploy Containers to Azure ACI using Docker CLI and Compose](https://www.docker.com/blog/how-to-deploy-containers-to-azure-aci-using-docker-cli-and-compose/)
+    - [taged: ACI](https://www.docker.com/blog/tag/aci/)
+    - [tagged: Azure](https://www.docker.com/blog/tag/azure/)
+  - ECS
+    - [2020-11-19 Docker Compose for Amazon ECS Now Available](https://www.docker.com/blog/docker-compose-for-amazon-ecs-now-available/)
+    - [2020-09-15 ICYMI: From Docker Straight to AWS Built-in](https://www.docker.com/blog/icymi-from-docker-straight-to-aws-built-in/)
+    - [tagged aws](https://www.docker.com/blog/tag/aws-2/)
+    - [tagged ECS](https://www.docker.com/blog/tag/ecs/)
+- Microsoft Blog
+  - [Publishing Azure Container Instances from Docker CLI ...](https://devblogs.microsoft.com/devops/publishing-azure-container-instances-from-docker-cli/)
+  - ...
+- AWS Blog
+  - ...
+- Watch the [docker roadmap via GH issues](https://github.com/docker/roadmap/issues)
+  - [gke support](https://github.com/docker/roadmap/issues/137)
+  - [aci support - done](https://github.com/docker/roadmap/issues/116)
+    - [linked video](https://docker.events.cube365.net/docker/dockercon/content/Videos/XBEpzDGMuM64ERg6Z)
+  - aci ideas / WIP
+    - [Support to deploy Windows containers to ACI using the Docker CLI #138](https://github.com/docker/roadmap/issues/138)
+- Commands:
+  - `docker login --help` # watch for updates like it shows `azure` right now
+    - `docker login azure`
+  - `docker context create --help`
+  - `docker context create aci --help`
+  - `docker context create ecs --help`
   - `docker context use myaci/myecs`
   - `docker container run..` or `docker compose ...`
   - I see lots of value in this latter approach as security can become someone else's business that has the resources to be super experts and we all can just benefit from their expertise! And scale!
