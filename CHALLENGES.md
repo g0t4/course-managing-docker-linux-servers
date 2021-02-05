@@ -2,6 +2,8 @@
 
 - Try any of the exercises in this repository. Run through additional scenarios with them.
   - Try installing an old version of docker in a similar situation to what you use in your production environments and then try updating it.
+  - [archy](./installing/archy/) is a bonus to explore independently
+    - it includes an automated drop-in for systemd to mod the `docker.service`.
 
 ### docker context + aci/ecs
 
