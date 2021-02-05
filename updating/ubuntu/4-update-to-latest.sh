@@ -18,7 +18,7 @@ echo "docker container ls"
 echo docker container ls
   # compare uptimes of containers
   # you could mod this to use live restore
-echo "docker container ls"
+echo "docker volume ls"
 sudo docker volume ls
 # externally open sites:
   # http://192.168.33.10:9000
