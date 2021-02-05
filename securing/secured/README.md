@@ -44,7 +44,7 @@ There is a new [rootless mode for Docker Engine](https://docs.docker.com/engine/
 
 - [`PKCS` - `Public Key Cryptography Standards`](https://en.wikipedia.org/wiki/PKCS)
 
-### docker to the cloud
+### docker context to the [CLOUD] 
 
 Explore these on your own or watch for courses in the future about these exciting, developing features. Just run docker from your desktop and connect seamlessly to cloud providers for infinite scale, security, simplicity (hopefully on cloud providers end too!). And run familiar `docker container run` or `docker compose` commands to launch containers or entire apps just like on the desktop!
 
