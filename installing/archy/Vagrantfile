@@ -6,6 +6,6 @@ Vagrant.configure('2') do |config|
   config.vm.provision 'shell', path: 'scripts/010-upgrade-all-packages.sh'
   config.vm.provision 'shell', reboot: true, name: 'reboot'
   config.vm.provision 'shell', path: 'scripts/030-install.docker.sh'
-  config.vm.provision 'shell', path: 'scripts/040-modify.docker.socket.sh'
+  #config.vm.provision 'shell', path: 'scripts/040-modify.docker.socket.sh'
   config.vm.provision 'shell', path: 'scripts/050-config.learn.arch.sh'
 end
