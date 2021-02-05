@@ -44,6 +44,23 @@ sudo apt-get install -y \
   docker-ce-cli=${_version} \
   containerd.io
 
+# bonus: add live-restore by just uncommenting these lines (can run after install too as just modifying the daemon config).
+# docs: https://docs.docker.com/config/containers/live-restore/
+sudo tee /etc/docker/daemon.json <<EOF
+{
+  "live-restore": true
+}
+EOF
+sudo systemctl reload docker
+# better yet, outside VM (after docker started with live-reload):
+  # `curl 192.168.33.10:9000` 
+  # or `curl 192.168.33.10:8900`
+  # or `curl 192.168.33.10:8800`
+  # in vm: `sudo systemctl stop docker`
+  # leave VM and run above curls again... do they work :)
+  # try this again but do a manual install instead of just stopping docker and watch containers with `pstree` in the VM while you run the install in a new terminal window.
+  # anddddd turn live-restore off and try before/after curls...
+
 
 echo "\n Step 1 docker version:"
 sudo docker version
