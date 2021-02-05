@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+  # this won't work forever so you might have to modify the example:
+  # - to use a newer version of ubuntu (box)
+  # - to use newer range of docker versions
+  # - of course if install instructions change on docker site
+  # enjoy :)
+
+  config.vm.box = 'ubuntu/focal64'
+  config.vm.network 'private_network', ip: '192.168.33.10'
+
+  # disable any of the scripts to try the update by hand if desired
+  config.vm.provision 'shell', path: '1-install-19.03.sh'
+  config.vm.provision 'shell', path: '2-update-to-20.10.0.sh'
+  config.vm.provision 'shell', path: '3-create-some-state.sh'
+  config.vm.provision 'shell', path: '4-update-to-latest.sh'
+end
