@@ -6,7 +6,3 @@ Arch has its own `docker` package. A 3rd party build if you will. Arch does a go
 - [arch wiki about Docker](https://wiki.archlinux.org/index.php/Docker) - fantastic resource that's even applicable to other distros
 - [dockerd config file docs](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
 - [arch docs - systemd units](https://wiki.archlinux.org/index.php/Systemd#Using_units) - wonderful guide, again likely applicable across distros
-
-## Manual notes
-
-- Bonus - try setting up rootless docker with help from instructions for arch here: https://wiki.archlinux.org/index.php/Docker#Docker_rootless
