@@ -19,6 +19,8 @@ This is the official example repository for course exercise files for my Plurals
     - install `containerd` from pre-built binaries
   - [alone-pkg](containerds/alone-pkg/README.md)
     - install `containerd` from a package
+- [updating/ubuntu](./updating/ubuntu/Vagrantfile)
+  - fully automated example of updating with ubuntu to experiment with including updating with state (containers, volumes, images)
 
 ### Optional files:
 
