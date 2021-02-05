@@ -7,9 +7,9 @@ This is the official example repository for course exercise files for my Plurals
 # Organization
 
 - [installing](./installing/)
-  - These examples are sprinkled throughout the course but coalesced together so you have a base of examples to install docker using different methods. Try them all out!
-- [contexts](./contexts/)
-- [securing]
+  - Various examples sprinkled throughout the course. 
+  - Try them all!
+- [securing](./securing/)
   - [api-security](./securing/api-security.sh)
     - sample API calls - used to demo power of API and why it needs to be secured
   - [secured VM](./securing/secured/README.md)
@@ -19,10 +19,13 @@ This is the official example repository for course exercise files for my Plurals
     - install `containerd` from pre-built binaries
   - [alone-pkg](containerds/alone-pkg/README.md)
     - install `containerd` from a package
-- optional files:
+
+### Optional files:
   - [Prettier formatting]
     - [config](.prettierrc.yaml), [ignores](.prettierignore)
-    - package.json, package-lock.json
+    - package.json, package-lock.json, node_modules
+  - [.vscode](./.vscode)
+    - to pass along recommended extensions and config
   - [host-mods](./host-mods/)
     - I used this ansible playbook to add entries to my host's host file.
 
