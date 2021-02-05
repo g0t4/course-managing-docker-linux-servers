@@ -2,19 +2,29 @@
 
 This is the official example repository for course exercise files for my Pluralsight course Managing Docker on Linux Servers.
 
-**This course is a work in progress slated to be live yet in 2020**
-
-[Course link](https://app.pluralsight.com/library/courses/managing-docker-linux-servers) _(once complete, for now this is dead)_
+[Course link - MAY NOT YET BE LIVE FOR A FEW MORE DAYS](https://app.pluralsight.com/library/courses/managing-docker-linux-servers)
 
 # Organization
 
-Each module of the course has a corresponding folder for examples:
-
 - [installing](./installing/)
+  - These examples are sprinkled throughout the course but coalesced together so you have a base of examples to install docker using different methods. Try them all out!
 - [contexts](./contexts/)
-- [securing](./securing/)
-- [containerd](./containerd/)
-- [updating](./updating/)
+- [securing]
+  - [api-security](./securing/api-security.sh)
+    - sample API calls - used to demo power of API and why it needs to be secured
+  - [secured VM](./securing/secured/README.md)
+    - for API TLS config experimentation
+- [containerds](./containerds/)
+  - [alone](./containerds/alone-pkg/README.md)
+    - install `containerd` from pre-built binaries
+  - [alone-pkg](containerds/alone-pkg/README.md)
+    - install `containerd` from a package
+- optional files:
+  - [Prettier formatting]
+    - [config](.prettierrc.yaml), [ignores](.prettierignore)
+    - package.json, package-lock.json
+  - [host-mods](./host-mods/)
+    - I used this ansible playbook to add entries to my host's host file.
 
 The master branch contains the history of commits from zero to finished so you can step through the course history as the samples are developed. Enjoy!
 
@@ -26,11 +36,12 @@ The master branch contains the history of commits from zero to finished so you c
 
 - [Vagrant - all my tips and notes that are relevant](https://github.com/g0t4/wes-docs/tree/master/vagrants)
 - [Docker docs](https://docs.docker.com/)
-    - I like the new emphasis on types of docs that I frequently visit
-    - [Install](https://docs.docker.com/get-docker/)
-    - [Guides](https://docs.docker.com/get-started/overview/)
-    - [References](https://docs.docker.com/reference/)
-      - Dockerfile, docker-compose syntax
-      - docker CLI and dockerd flags/config
-      - API docs (both Engine and Registry)
+  - I like the new emphasis on types of docs that I frequently visit
+  - [Install](https://docs.docker.com/get-docker/)
+  - [Guides](https://docs.docker.com/get-started/overview/)
+  - [References](https://docs.docker.com/reference/)
+    - Dockerfile, docker-compose syntax
+    - docker CLI and dockerd flags/config
+    - API docs (both Engine and Registry)
   - [Glossary](https://docs.docker.com/glossary/)
+-

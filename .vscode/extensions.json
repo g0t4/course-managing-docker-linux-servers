@@ -1,0 +1,9 @@
+{
+  // Learn about workspace recommendations:
+  // https://go.microsoft.com/fwlink/?LinkId=827846
+  "recommendations": [
+    // for code formatting
+    "esbenp.prettier-vscode"
+  ],
+  "unwantedRecommendations": []
+}
